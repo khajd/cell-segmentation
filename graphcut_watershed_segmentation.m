@@ -36,18 +36,21 @@ x_left = 50;
 x_right = 850;
 %inicjalizacja stalych
 
-fnameread = '027 FITC_C.tif';
+% fnameread = '027 FITC_C_1.tif';
+fnameread = 'obrazy/027 FITC_C_1.tif';
 info = imfinfo(fnameread);
 %wczytanie nazwy stosu plikow i informacji o niej
 
 time_parfor = zeros(1,163); 
 %inicjalizacja macierzy mierzacej czas wykonania
 
-for imagenumber=316:2:326
+for imagenumber=2:2:2
    
 tic
     
-im = imread(fnameread, imagenumber, 'Info', info);
+% im = imread(fnameread, imagenumber, 'Info', info);
+
+im = imread(fnameread);
 
 im_original16 = im; 
 
@@ -150,8 +153,8 @@ coloredLabelsImage = label2rgb (labeledImage, 'hsv', 'k', 'shuffle'); %koloruje 
 
 fnamesave = sprintf('wyniki/segm1_%d-2.png',(imagenumber/2));
 imwrite(coloredLabelsImage,fnamesave);
-fnamesave = sprintf('wyniki/segm2_%d-2.png',(imagenumber/2));
-imwrite(coloredLabelsImage,fnamesave);
+% fnamesave = sprintf('wyniki/segm2_%d-2.png',(imagenumber/2));
+% imwrite(coloredLabelsImage,fnamesave);
 %zapis do pliku
 
 clear A;
@@ -1272,9 +1275,9 @@ coloredLabelsImage_segm1_fix_gray = coloredLabelsImage_segm1_fix_gray + final_re
 
 %
 
-imshow(coloredLabelsImage_segm1_fix_gray);
-figure
-imshow(final_result)
+% imshow(coloredLabelsImage_segm1_fix_gray);
+% figure
+% imshow(final_result)
 
 se = strel('disk',2);
 coloredLabelsImage_segm1_fix_gray = imopen(coloredLabelsImage_segm1_fix_gray,se);
@@ -1304,16 +1307,16 @@ image_final_segm1 = result_matrix_segm1 .* im_original;
 %zapis do plikow
 fnamesave = sprintf('wyniki/segm1_%d-1.png',(imagenumber/2));
 imwrite(im_original,fnamesave);
-fnamesave = sprintf('wyniki/segm2_%d-1.png',(imagenumber/2));
-imwrite(im_original,fnamesave);
+% fnamesave = sprintf('wyniki/segm2_%d-1.png',(imagenumber/2));
+% imwrite(im_original,fnamesave);
 fnamesave = sprintf('wyniki/segm1_%d-3.png',(imagenumber/2));
 imwrite(coloredLabelsImage_segm1_fix_color,fnamesave);
-fnamesave = sprintf('wyniki/segm2_%d-3.png',(imagenumber/2));
-imwrite(coloredLabelsImage_segm2,fnamesave);
+% fnamesave = sprintf('wyniki/segm2_%d-3.png',(imagenumber/2));
+% imwrite(coloredLabelsImage_segm2,fnamesave);
 fnamesave = sprintf('wyniki/segm1_%d-4.png',(imagenumber/2));
 imwrite(image_final_segm1,fnamesave);
-fnamesave = sprintf('wyniki/segm2_%d-4.png',(imagenumber/2));
-imwrite(image_final_segm2,fnamesave);
+% fnamesave = sprintf('wyniki/segm2_%d-4.png',(imagenumber/2));
+% imwrite(image_final_segm2,fnamesave);
 
 time_parfor(imagenumber/2) = toc;
 
